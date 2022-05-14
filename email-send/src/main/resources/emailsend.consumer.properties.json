@@ -1,0 +1,11 @@
+{
+    "topic": "ECOMMERCE_SEND_EMAIL",
+    "bootstrapServer": "localhost:9094",
+    "keyDeserializer": "org.apache.kafka.common.serialization.UUIDDeserializer",
+    "valueDeserializer": "br.com.alura.deserializers.GsonDeserializer",
+    "groupId": "email-send",
+    "maxPollConfig": "1",
+    "autoOffsetConfig": "earliest",
+    "pollDuration": "1000",
+    "deserializationType": "br.com.alura.dtos.Email"
+}

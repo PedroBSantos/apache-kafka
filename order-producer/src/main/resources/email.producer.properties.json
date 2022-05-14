@@ -1,0 +1,6 @@
+{
+    "bootstrapServer": "localhost:9094",
+    "topic": "ECOMMERCE_SEND_EMAIL",
+    "keySerializer": "org.apache.kafka.common.serialization.UUIDSerializer",
+    "valueSerializer": "br.com.alura.serializers.GsonSerializer"
+}

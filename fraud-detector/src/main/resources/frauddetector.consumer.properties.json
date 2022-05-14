@@ -1,0 +1,11 @@
+{
+    "topic": "ECOMMERCE_NEW_ORDER",
+    "bootstrapServer": "localhost:9094",
+    "keyDeserializer": "org.apache.kafka.common.serialization.UUIDDeserializer",
+    "valueDeserializer": "br.com.alura.deserializers.GsonDeserializer",
+    "groupId": "fraud-detector",
+    "maxPollConfig": "1",
+    "autoOffsetConfig": "earliest",
+    "pollDuration": "1000",
+    "deserializationType": "br.com.alura.dtos.Order"
+}
