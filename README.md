@@ -1,4 +1,5 @@
 # Ecommerce
+![Diagrama C4](https://github.com/PedroBSantos/apache-kafka/blob/master/images/CMS.png)
 
 ## Comandos Kafka
 
