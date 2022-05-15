@@ -1,0 +1,25 @@
+@startuml CMS
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!include DEVICONS/java.puml
+!include DEVICONS/postgresql.puml
+
+AddRelTag("async", $lineStyle = DashedLine())
+
+SHOW_PERSON_PORTRAIT()
+
+Person(consumidor, "Usuário", "Pessoa que realiza o pedido de compra no site")
+ContainerQueue(kafka, "Serviço de Mensageria", "Apache Kafka", "Recebe eventos e os armazenam em tópicos específicos")
+Container(order_producer, "Order Producer", "Java", "Sistema que gera o pedido de compra",  $sprite = "java")
+Rel(consumidor, order_producer, "Envia solicitação de geração de pedido", "https/json")
+Rel(order_producer, kafka, "Publica o pedido gerado no tópico ECOMMERCE_NEW_ORDER", "", $tags = "async")
+Rel(order_producer, kafka, "Publica email de confirmação de pedido no tópico ECOMMERCE_SEND_EMAIL", "", $tags = "async")
+
+ContainerDb(orders_db, "Banco de Dados", "PostgreSQL", "Persistência e recuperação de pedidos", $sprite = "postgresql")
+Rel(order_producer, orders_db, "Persisti e recupera pedidos", "postgresql")
+
+Container(fraud_detector, "Fraud Detector", "Java", "Sistema que verifica a possibilidade do pedido de compra ser uma fraude", $sprite = "java")
+Rel(fraud_detector, kafka, "Recupera os pedidos armazenados no tópico ECOMMERCE_NEW_ORDER", $tags = "async")
+Container(email_send, "Email Send", "Java", "Sistema responsável por enviar o email de confirmação de recebimento do pedido de compra", $sprite = "java")
+Rel(email_send, kafka, "Recupera email's a serem enviados armazenados no tópico ECOMMERCE_SEND_EMAIL", $tags = "async")
